@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- This program takes in User Personal Details and outputs it in Grid Form -->
+<html>
+<head>
+    <title>Personal Details Form</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        label {
+            margin-top: 10px;
+        }
+        table {
+            margin-top: 50px;
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+<h1>Personal Details Form</h1>
+<form>
+    <label for="firstName">First Name: </label>
+    <input type="text" id="firstName" name="firstName" required>
+    <label for="lastName">Last Name: </label>
+    <input type="text" id="lastName" name="lastName" required>
+    <label for="dob">Date of Birth: </label>
+    <input type="date" id="dob" name="dob" required>
+    <label for="doj">Date of Joining: </label>
+    <input type="date" id="doj" name="doj" required>
+    <button type="button" onclick="saveDetails()">Save</button>
+</form>
+<table id="detailsTable">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>DOB</th>
+        <th>DOJ</th>
+        <th>Edit/Delete</th>
+    </tr>
+</table>
+
+<script>
+    function saveDetails() {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const dob = document.getElementById("dob").value;
+        const doj = document.getElementById("doj").value;
+        const table = document.getElementById("detailsTable");
+        const newRow = table.insertRow(-1);
+        const newCell1 = newRow.insertCell(0);
+        const newCell2 = newRow.insertCell(1);
+        const newCell3 = newRow.insertCell(2);
+        const newCell4 = newRow.insertCell(3);
+        const newCell5 = newRow.insertCell(4);
+        newCell1.innerHTML = firstName;
+        newCell2.innerHTML = lastName;
+        newCell3.innerHTML = dob;
+        newCell4.innerHTML = doj;
+        newCell5.innerHTML = "<button onclick='editRow(this)'>Edit</button> <button onclick='deleteRow(this)'>Delete</button>";
+        document.getElementById("firstName").value = "";
+        document.getElementById("lastName").value = "";
+        document.getElementById("dob").value = "";
+        document.getElementById("doj").value = "";
+    }
+
+    function editRow(button) {
+        const row = button.parentNode.parentNode;
+        const firstName = row.cells[0].innerHTML;
+        const lastName = row.cells[1].innerHTML;
+        const dob = row.cells[2].innerHTML;
+        const doj = row.cells[3].innerHTML;
+        document.getElementById("firstName").value = firstName;
+        document.getElementById("lastName").value = lastName;
+        document.getElementById("dob").value = dob;
+        document.getElementById("doj").value = doj;
+        row.remove();
+    }
+
+    function deleteRow(button) {
+        const row = button.parentNode.parentNode;
+        row.remove();
+    }
+</script>
+</body>
+</html>
